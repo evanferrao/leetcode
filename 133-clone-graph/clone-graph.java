@@ -19,35 +19,31 @@ class Node {
 */
 
 class Solution {
-    public Node cloneGraph(Node node) {
-
-        if (node == null) return null;
-
-        HashMap<Node, Node> map = new HashMap<>();
-        Node clone = new Node(node.val);
-        map.put(node, clone);
-
-        
-        Queue<Node> q = new ArrayDeque<>();
-        q.add(node);
-
-        while (!q.isEmpty()){
-            Node current = q.poll();
-            for (Node neighbor: current.neighbors){
-
-                // if map doesn't already contain it, add it
-                if (!map.containsKey(neighbor)){
-                    Node newClone = new Node(neighbor.val);
-                    map.put(neighbor, newClone);
-                    q.add(neighbor);
-                }
-                // at this stage, the neighbours have their own clones linked in map
 
 
-                map.get(current).neighbors.add(map.get(neighbor)); // now link the current node's CLONE's neighbours to the neighbors clone that we've either generated in the above if statement, or have already been generated if there's a cycle somewhere
-            }
+    public Node dfs(Node node, HashMap<Node,Node> map){
+
+        if (map.containsKey(node)){
+            return map.get(node); // if a node is already added in the list before, this is to prevent cycles from forming
+            // assume a graph of 1<->2. in this graph 1 will call 2, then 2 will call 1, then 1 will call 2. this happens forever
         }
 
-        return map.get(node);
+        Node cloneNode = new Node(node.val);
+        map.put(node, cloneNode);
+
+
+        for (Node neighbor: node.neighbors){
+            cloneNode.neighbors.add(dfs(neighbor, map));
+        }
+
+        return cloneNode;
+    }
+
+    public Node cloneGraph(Node node) {
+
+        HashMap<Node,Node> map = new HashMap<>();
+        if (node == null) return null;
+
+        return dfs(node, map);
     }
 }
