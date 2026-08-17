@@ -44,7 +44,7 @@ class Solution {
         }
 
         // Find city with fewest reachable cities
-        int count = Integer.MAX_VALUE;
+        int count = n + 1; //we can also use Integer.MAX_VALUE;
         int city = -1;
 
         for (int i = 0; i < n; i++) {
