@@ -109,9 +109,20 @@ class Solution {
         }
 
         // Edge case: grid is already entirely 1s
-        for (int node = 0; node < n * m; node++) {
-            maxSize = Math.max(maxSize, ds.size.get(node));
+        // for (int node = 0; node < n * m; node++) {
+        //     maxSize = Math.max(maxSize, ds.size.get(node));
+        // }
+
+        int numberOfOnes = 0;
+        for (int i=0; i<n; i++){
+            for (int j=0; j<m; j++){
+                if (grid[i][j] == 1){
+                    numberOfOnes++;
+                }
+            }
         }
+
+        if (numberOfOnes == n*m) return numberOfOnes;
 
         return maxSize;
     }
