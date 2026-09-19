@@ -9,10 +9,10 @@ SELECT
         2
     ) as fraction
 FROM Activity
-WHERE (player_id, DATE_SUB(event_date, INTERVAL 1 DAY)) IN (
+WHERE (player_id, event_date) IN (
     SELECT
         player_id,
-        MIN(event_date) AS first_login 
+        DATE_ADD(MIN(event_date), INTERVAL 1 DAY)
     FROM Activity
     GROUP BY player_id
 )
