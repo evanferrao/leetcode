@@ -108,10 +108,16 @@ class Solution {
             }
         }
 
-        // Edge case: grid is already entirely 1s
+        //Edge case: grid is already entirely 1s
         // for (int node = 0; node < n * m; node++) {
         //     maxSize = Math.max(maxSize, ds.size.get(node));
         // }
+
+        // even better than the for loop above
+
+        // maxSize = Math.max(maxSize, ds.size.get(0)); // our implementation guarantees 0 to be parent if its first
+        // OR 
+        // maxSize = Math.max(maxSize, ds.size.get(ds.findUltimateParent(0))); // if we use shitty implementation or use unionByRank
 
         int numberOfOnes = 0;
         for (int i=0; i<n; i++){
