@@ -10,7 +10,7 @@ SELECT
     ) AS quality,
     ROUND (
         COALESCE(
-            ( 100 * SUM(Q1.rating < 3) / COUNT(Q1.query_name)),
+            ( 100 * COUNT(CASE WHEN Q1.rating < 3 THEN 1 END) / COUNT(Q1.query_name)),
             0
         ),
         2
