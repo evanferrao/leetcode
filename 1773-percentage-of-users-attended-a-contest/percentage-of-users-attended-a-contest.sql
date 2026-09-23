@@ -10,8 +10,8 @@ SELECT
         ),
         2
     ) as percentage
-FROM Users U
-RIGHT JOIN Register R
+FROM Register R
+LEFT JOIN Users U
 ON (U.user_id = R.user_id)
 GROUP BY R.contest_id
 ORDER BY percentage DESC, R.contest_id ASC
